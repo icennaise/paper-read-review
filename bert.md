@@ -5,7 +5,9 @@
 ### 2: 微调的策略（fine-tuning）
 代表：GPT，尽量少地引入任务专用的参数，通过微调所有预训练参数对下游任务进行训练。
 
-
+ELMo使用RNN，对下游任务需要调整，而transformer则不太需要。
+GPT使用单向，而Bert是双向的。
+![image](https://user-images.githubusercontent.com/21083001/147535912-7b0d547d-5749-4b07-8253-f20a26c99647.png)
 
 作者指出不足：单向的语言模型限制了表现，在句子级的任务上“不是最优”，在fine-tuning方式的token级的任务上“十分有害”
 
@@ -76,11 +78,13 @@ Bert有两个版本，小的用于和参数数量相当的OpenAiGPT对比，大�
 增加难度，为了训练更深的模型：随机屏蔽15%的输入，替换为特殊字符，将输出进行softmax，进行预测。
 
 由于引入了不匹配过程，引入缓解措施：具体而言，80%替换【mask】，10%替换随机值，10%不变，对应位置的输出用来预测原始值。
+![image](https://user-images.githubusercontent.com/21083001/147537412-aa3a793a-6948-402f-8f39-e86c75525113.png)
 
 ### Task #2 :Next Sentence Prediction
 许多任务是基于对句子关系的理解，单有语言建模不足以处理这些问题。
 
 50%的句子对是相邻的，另一些是随机的。【CLS】将会被训练去预测句子是否相邻。
+![image](https://user-images.githubusercontent.com/21083001/147537440-f446acac-e6e9-48f5-a9ca-e79cc403dda9.png)
 
 前人的NSP任务提供sentence embedding，而Bert提供所有参数供下游任务微调。
 
